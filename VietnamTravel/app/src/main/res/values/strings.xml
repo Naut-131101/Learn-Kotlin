@@ -1,0 +1,9 @@
+<!--<resources>-->
+<!--    <string name="app_name">VietnamTravel</string>-->
+<!--</resources>-->
+
+<resources>
+    <string name="app_name">Việt Nam Travel</string>
+    <string name="section_featured">Nổi bật</string>
+    <string name="section_all_places">Tất cả địa điểm</string>
+</resources>

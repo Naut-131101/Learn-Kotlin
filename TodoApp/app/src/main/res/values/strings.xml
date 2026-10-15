@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Việc cần làm</string>
+    <string name="add_task_hint">Thêm việc mới…</string>
+    <string name="cd_add_task">Thêm công việc</string>
+    <string name="cd_delete_task">Xoá công việc %1$s</string>
+    <string name="filter_all">Tất cả</string>
+    <string name="filter_active">Đang làm</string>
+    <string name="filter_done">Đã xong</string>
+    <string name="remaining_count">Còn %1$d việc</string>
+    <string name="clear_completed">Xoá việc đã xong</string>
+    <string name="empty_all">Chưa có việc nào.\nThêm việc đầu tiên ở ô phía trên!</string>
+    <string name="empty_active">Tuyệt vời! Không còn việc nào đang dở.</string>
+    <string name="empty_done">Chưa hoàn thành việc nào. Cố lên!</string>
+</resources>

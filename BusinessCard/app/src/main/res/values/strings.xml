@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BusinessCard</string>
+
+    <string name="full_name">Nguyễn Thị Lan</string>
+    <string name="job_title">Android Developer Intern</string>
+    <string name="organization">Trường Đại học ABC</string>
+
+    <string name="phone_number">+84 901 234 567</string>
+    <string name="email">lan.nguyen@example.com</string>
+    <!-- Chuỗi bắt đầu bằng @ phải viết \@, nếu không Android hiểu là tham chiếu resource -->
+    <string name="social_handle">\@lan.codes</string>
+
+    <string name="cd_avatar">Ảnh đại diện</string>
+    <string name="cd_phone">Số điện thoại</string>
+    <string name="cd_email">Email</string>
+    <string name="cd_social">Mạng xã hội</string>
+</resources>
