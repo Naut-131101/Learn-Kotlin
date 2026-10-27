@@ -1,197 +1,32 @@
 package com.example.bepviet.data
 
-object RecipeRepository {
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
-    val recipes: List<Recipe> = listOf(
-        Recipe(
-            id = 1,
-            name = "Phở bò",
-            category = "Món nước",
-            emoji = "🍜",
-            description = "Nước dùng ninh xương trong, thơm quế hồi, bánh phở mềm và thịt bò tái.",
-            cookTimeMin = 180,
-            difficulty = Difficulty.HARD,
-            ingredients = listOf(
-                "1 kg xương ống bò",
-                "300 g thịt bò thăn",
-                "500 g bánh phở",
-                "1 củ gừng, 2 củ hành tây",
-                "Quế, hồi, thảo quả, đinh hương",
-                "Hành lá, rau thơm, chanh, ớt",
-            ),
-            steps = listOf(
-                "Chần xương bò qua nước sôi 5 phút, rửa sạch để nước dùng trong.",
-                "Nướng gừng và hành tây cho thơm, rang quế hồi thảo quả.",
-                "Ninh xương với gừng, hành và gói gia vị ít nhất 3 giờ, hớt bọt thường xuyên.",
-                "Nêm nước mắm, muối, đường phèn cho vừa vị.",
-                "Trụng bánh phở, xếp thịt bò thái mỏng, chan nước dùng thật sôi.",
-            ),
-        ),
-        Recipe(
-            id = 2,
-            name = "Bún bò Huế",
-            category = "Món nước",
-            emoji = "🌶️",
-            description = "Nước dùng đậm mùi sả và mắm ruốc, cay nồng đặc trưng xứ Huế.",
-            cookTimeMin = 150,
-            difficulty = Difficulty.HARD,
-            ingredients = listOf(
-                "500 g bắp bò",
-                "1 kg giò heo",
-                "500 g bún sợi to",
-                "5 cây sả",
-                "2 muỗng mắm ruốc Huế",
-                "Ớt sa tế, hành lá, rau sống",
-            ),
-            steps = listOf(
-                "Chần giò heo và bắp bò, rửa sạch.",
-                "Ninh xương và giò với sả đập dập khoảng 2 giờ.",
-                "Hoà mắm ruốc với nước, lọc lấy phần trong rồi cho vào nồi.",
-                "Phi sả băm với ớt làm sa tế, cho vào nồi nước dùng.",
-                "Trụng bún, xếp bắp bò, giò, chan nước dùng và rắc hành.",
-            ),
-        ),
-        Recipe(
-            id = 3,
-            name = "Canh chua cá lóc",
-            category = "Món nước",
-            emoji = "🐟",
-            description = "Vị chua thanh của me, ngọt của dứa và cà chua, món canh quen thuộc miền Nam.",
-            cookTimeMin = 40,
-            difficulty = Difficulty.MEDIUM,
-            ingredients = listOf(
-                "1 con cá lóc khoảng 800 g",
-                "50 g me chua",
-                "1/4 quả dứa, 2 quả cà chua",
-                "Bạc hà (dọc mùng), đậu bắp, giá",
-                "Ngò om, ngò gai",
-            ),
-            steps = listOf(
-                "Làm sạch cá, cắt khúc, ướp chút muối và nước mắm.",
-                "Dầm me với nước ấm, lọc lấy nước chua.",
-                "Đun sôi nước, cho nước me, dứa và cà chua vào.",
-                "Cho cá vào nấu chín, nêm đường và nước mắm vừa ăn.",
-                "Thêm bạc hà, đậu bắp, giá; tắt bếp và rắc rau thơm.",
-            ),
-        ),
-        Recipe(
-            id = 4,
-            name = "Cơm tấm sườn nướng",
-            category = "Món cơm",
-            emoji = "🍚",
-            description = "Sườn cốt lết nướng than thơm lừng ăn cùng cơm tấm, mỡ hành và nước mắm chua ngọt.",
-            cookTimeMin = 60,
-            difficulty = Difficulty.MEDIUM,
-            ingredients = listOf(
-                "4 miếng sườn cốt lết",
-                "500 g gạo tấm",
-                "Sả, tỏi, hành tím băm",
-                "Nước mắm, mật ong, dầu hào",
-                "Hành lá, dưa leo, đồ chua",
-            ),
-            steps = listOf(
-                "Đập mỏng sườn, ướp với sả, tỏi, nước mắm, mật ong ít nhất 30 phút.",
-                "Vo gạo tấm và nấu cơm với lượng nước ít hơn gạo thường.",
-                "Nướng sườn trên than hoặc nồi chiên không dầu đến khi vàng sém.",
-                "Làm mỡ hành và pha nước mắm chua ngọt.",
-                "Bày cơm, sườn, mỡ hành, đồ chua và dưa leo ra đĩa.",
-            ),
-        ),
-        Recipe(
-            id = 5,
-            name = "Thịt kho trứng",
-            category = "Món cơm",
-            emoji = "🥚",
-            description = "Thịt ba chỉ kho nước dừa mềm rục, trứng thấm vị, món không thể thiếu ngày Tết.",
-            cookTimeMin = 90,
-            difficulty = Difficulty.EASY,
-            ingredients = listOf(
-                "600 g thịt ba chỉ",
-                "6 quả trứng vịt",
-                "1 quả dừa xiêm",
-                "Nước mắm, đường, hành tím, tỏi",
-            ),
-            steps = listOf(
-                "Cắt thịt miếng vuông, ướp nước mắm, đường, hành tỏi 30 phút.",
-                "Luộc trứng, bóc vỏ.",
-                "Thắng đường làm màu, cho thịt vào đảo săn.",
-                "Đổ nước dừa ngập thịt, kho lửa nhỏ khoảng 1 giờ.",
-                "Cho trứng vào kho thêm 20 phút đến khi nước sánh lại.",
-            ),
-        ),
-        Recipe(
-            id = 6,
-            name = "Gỏi cuốn tôm thịt",
-            category = "Ăn vặt",
-            emoji = "🥬",
-            description = "Bánh tráng cuốn tôm, thịt, bún và rau sống, chấm tương đậu phộng.",
-            cookTimeMin = 30,
-            difficulty = Difficulty.EASY,
-            ingredients = listOf(
-                "200 g tôm",
-                "200 g thịt ba chỉ",
-                "Bánh tráng, bún tươi",
-                "Xà lách, húng quế, hẹ",
-                "Tương đen, bơ đậu phộng",
-            ),
-            steps = listOf(
-                "Luộc thịt và tôm, thái thịt mỏng, bổ đôi tôm.",
-                "Nhúng bánh tráng qua nước cho mềm.",
-                "Xếp rau, bún, thịt, tôm lên bánh tráng rồi cuộn chặt tay.",
-                "Pha nước chấm từ tương đen, bơ đậu phộng và chút nước.",
-            ),
-        ),
-        Recipe(
-            id = 7,
-            name = "Bánh xèo",
-            category = "Ăn vặt",
-            emoji = "🥞",
-            description = "Vỏ bánh vàng giòn nhân tôm thịt giá đỗ, cuốn rau sống chấm nước mắm.",
-            cookTimeMin = 50,
-            difficulty = Difficulty.MEDIUM,
-            ingredients = listOf(
-                "300 g bột bánh xèo",
-                "200 ml nước cốt dừa, 1 muỗng bột nghệ",
-                "200 g tôm, 200 g thịt ba chỉ",
-                "Giá đỗ, hành lá",
-                "Cải bẹ xanh, rau thơm, nước mắm chua ngọt",
-            ),
-            steps = listOf(
-                "Pha bột với nước cốt dừa, bột nghệ, hành lá; để nghỉ 30 phút.",
-                "Phi thơm tôm và thịt trong chảo nóng có dầu.",
-                "Đổ một vá bột, láng đều chảo, cho giá vào và đậy nắp.",
-                "Mở nắp, chiên đến khi vỏ giòn vàng rồi gập đôi.",
-                "Ăn kèm rau sống và nước mắm chua ngọt.",
-            ),
-        ),
-        Recipe(
-            id = 8,
-            name = "Chè chuối",
-            category = "Tráng miệng",
-            emoji = "🍌",
-            description = "Chuối sứ chín ngọt nấu với nước cốt dừa và bột báng, rắc đậu phộng rang.",
-            cookTimeMin = 35,
-            difficulty = Difficulty.EASY,
-            ingredients = listOf(
-                "6 quả chuối sứ chín",
-                "50 g bột báng",
-                "300 ml nước cốt dừa",
-                "Đường, muối, đậu phộng rang",
-            ),
-            steps = listOf(
-                "Bóc vỏ chuối, cắt khúc, ướp với chút đường 15 phút.",
-                "Ngâm bột báng cho nở.",
-                "Nấu nước cốt dừa với đường và chút muối.",
-                "Cho bột báng rồi chuối vào nấu đến khi bột trong.",
-                "Múc ra chén, rắc đậu phộng rang.",
-            ),
-        ),
-    )
+class RecipeRepository {
 
-    val categories: List<String> = recipes.map { it.category }.distinct()
+    private val _favoriteIds = MutableStateFlow<Set<Int>>(emptySet())
 
-    fun getRecipes(category: String?): List<Recipe> =
-        if (category == null) recipes else recipes.filter { it.category == category }
+    /** Id các món yêu thích. Chỉ repository được sửa; bên ngoài chỉ đọc. */
+    val favoriteIds: StateFlow<Set<Int>> = _favoriteIds.asStateFlow()
 
-    fun getRecipe(id: Int): Recipe? = recipes.find { it.id == id }
+    /** Danh sách món. Cold flow: mỗi lần collect "tải" lại, mất 800 ms như gọi mạng. */
+    fun getRecipes(): Flow<List<Recipe>> = flow {
+        delay(800)
+        emit(RecipeData.recipes)
+    }
+
+    /** Một món theo id, null nếu không tồn tại. */
+    fun getRecipe(id: Int): Flow<Recipe?> =
+        getRecipes().map { recipes -> recipes.find { it.id == id } }
+
+    fun toggleFavorite(id: Int) {
+        _favoriteIds.update { ids -> if (id in ids) ids - id else ids + id }
+    }
 }

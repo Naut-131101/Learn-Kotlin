@@ -9,4 +9,7 @@ object RecipeList
 data class RecipeDetail(val recipeId: Int)
 
 @Serializable
+object Favorites
+
+@Serializable
 object About

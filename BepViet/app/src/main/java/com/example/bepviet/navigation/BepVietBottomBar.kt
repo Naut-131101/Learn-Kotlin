@@ -12,11 +12,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.compose.material.icons.filled.Favorite
 
 data class TopLevelRoute<T : Any>(val label: String, val route: T, val icon: ImageVector)
 
 val topLevelRoutes = listOf(
     TopLevelRoute("Công thức", RecipeList, Icons.Filled.Home),
+    TopLevelRoute("Yêu thích", Favorites, Icons.Filled.Favorite),
     TopLevelRoute("Giới thiệu", About, Icons.Filled.Info),
 )
 

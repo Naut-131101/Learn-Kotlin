@@ -34,13 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bepviet.data.Recipe
-import com.example.bepviet.data.RecipeRepository
+import com.example.bepviet.data.RecipeData
 import com.example.bepviet.ui.theme.BepVietTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(recipeId: Int, onBack: () -> Unit) {
-    val recipe = remember(recipeId) { RecipeRepository.getRecipe(recipeId) }
+    val recipe = remember(recipeId) { RecipeData.recipes.find { it.id == recipeId } }
 
     Scaffold(
         topBar = {

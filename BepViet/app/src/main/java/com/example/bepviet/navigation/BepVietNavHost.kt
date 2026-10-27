@@ -8,19 +8,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.example.bepviet.ui.about.AboutScreen
-import com.example.bepviet.ui.detail.RecipeDetailScreen
-import com.example.bepviet.ui.list.RecipeListScreen
+import com.example.bepviet.ui.favorites.FavoritesRoute
+import com.example.bepviet.ui.recipes.detail.RecipeDetailRoute
+import com.example.bepviet.ui.recipes.list.RecipeListRoute
 
 @Composable
 fun BepVietNavHost(navController: NavHostController = rememberNavController()) {
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = backStackEntry?.destination
 
     val bottomBar: @Composable () -> Unit = {
         BepVietBottomBar(
-            currentDestination = currentDestination,
+            currentDestination = backStackEntry?.destination,
             onNavigate = { route ->
                 navController.navigate(route) {
                     popUpTo(navController.graph.findStartDestination().id) { saveState = true }
@@ -30,20 +29,18 @@ fun BepVietNavHost(navController: NavHostController = rememberNavController()) {
             },
         )
     }
+    val openDetail: (Int) -> Unit = { id -> navController.navigate(RecipeDetail(recipeId = id)) }
 
     NavHost(navController = navController, startDestination = RecipeList) {
         composable<RecipeList> {
-            RecipeListScreen(
-                onRecipeClick = { id -> navController.navigate(RecipeDetail(recipeId = id)) },
-                bottomBar = bottomBar,
-            )
+            RecipeListRoute(onRecipeClick = openDetail, bottomBar = bottomBar)
         }
-        composable<RecipeDetail> { entry ->
-            val route = entry.toRoute<RecipeDetail>()
-            RecipeDetailScreen(
-                recipeId = route.recipeId,
-                onBack = { navController.navigateUp() },
-            )
+        composable<RecipeDetail> {
+            // Không cần toRoute ở đây: RecipeDetailViewModel tự đọc từ SavedStateHandle
+            RecipeDetailRoute(onBack = { navController.navigateUp() })
+        }
+        composable<Favorites> {
+            FavoritesRoute(onRecipeClick = openDetail, bottomBar = bottomBar)
         }
         composable<About> {
             AboutScreen(bottomBar = bottomBar)

@@ -3,7 +3,6 @@ package com.example.bepviet.ui.list
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bepviet.data.Recipe
-import com.example.bepviet.data.RecipeRepository
+import com.example.bepviet.data.RecipeData
+import com.example.bepviet.ui.components.RecipeCard
 import com.example.bepviet.ui.theme.BepVietTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,9 @@ fun RecipeListScreen(
     bottomBar: @Composable () -> Unit,
 ) {
     var selectedCategory by rememberSaveable { mutableStateOf<String?>(null) }
-    val recipes = remember(selectedCategory) { RecipeRepository.getRecipes(selectedCategory) }
+    val recipes = remember(selectedCategory) {
+        RecipeData.recipes.filter { selectedCategory == null || it.category == selectedCategory }
+    }
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Bếp Việt") }) },
@@ -53,7 +55,7 @@ fun RecipeListScreen(
                 .padding(innerPadding),
         ) {
             CategoryChips(
-                categories = RecipeRepository.categories,
+                categories = remember { RecipeData.recipes.map { it.category }.distinct() },
                 selected = selectedCategory,
                 onSelect = { selectedCategory = it },
             )
@@ -62,7 +64,12 @@ fun RecipeListScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 items(recipes, key = { it.id }) { recipe ->
-                    RecipeCard(recipe = recipe, onClick = { onRecipeClick(recipe.id) })
+                    RecipeCard(
+                        recipe = recipe,
+                        isFavorite = false,
+                        onClick = { onRecipeClick(recipe.id) },
+                        onToggleFavorite = {},
+                    )
                 }
             }
         }
@@ -94,27 +101,6 @@ fun CategoryChips(
                 onClick = { onSelect(category) },
                 label = { Text(category) },
             )
-        }
-    }
-}
-
-@Composable
-fun RecipeCard(recipe: Recipe, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Card(onClick = onClick, modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(recipe.emoji, fontSize = 40.sp)
-            Spacer(Modifier.width(16.dp))
-            Column {
-                Text(recipe.name, style = MaterialTheme.typography.titleMedium)
-                Text(
-                    text = "${recipe.category} · ${recipe.cookTimeMin} phút · ${recipe.difficulty.label}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
         }
     }
 }
