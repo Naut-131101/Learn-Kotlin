@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "341120046628-p3v26hev8a2hnenp31dg3g51cal21jbh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zerobook",
+            "certificate_hash": "1a686c76aba53539dfa83b494337e0bee469e0de"
+          }
+        },
+        {
           "client_id": "341120046628-lkpju1s27ku1b283farjk8soid1cal9p.apps.googleusercontent.com",
           "client_type": 3
         }

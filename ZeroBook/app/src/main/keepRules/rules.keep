@@ -10,3 +10,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Credential Manager nạp provider bằng reflection, R8 không được xoá
+-if class androidx.credentials.CredentialManager
+-keep class androidx.credentials.playservices.** { *; }
