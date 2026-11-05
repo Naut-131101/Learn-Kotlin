@@ -1,12 +1,8 @@
-# ZeroBook — Thư viện sách cá nhân
+# ZeroBook
 
-Ứng dụng Android giúp người thích đọc sách quản lý sách của mình: tìm sách, xếp lên kệ theo trạng thái **Đang đọc / Muốn đọc / Đã đọc**, ghi chú và đánh giá, đặt mục tiêu đọc trong năm và nhận nhắc nhở đọc sách mỗi ngày. Dữ liệu dùng được khi offline và tự đồng bộ giữa các máy qua tài khoản Google.
-
-> Đồ án cuối khoá Kotlin/Android — thực hiện cá nhân.
+ZeroBook là app Android quản lý tủ sách cá nhân mà em làm cho đồ án cuối khoá Kotlin/Android. App giúp mình theo dõi những cuốn sách đang đọc, đã đọc và muốn đọc, ghi lại cảm nhận, chấm điểm từng cuốn và đặt mục tiêu đọc bao nhiêu cuốn trong năm. Dữ liệu vẫn xem được khi không có mạng và tự đồng bộ lên cloud theo tài khoản Google, nên đổi máy vẫn còn nguyên kệ sách.
 
 ## Ảnh chụp màn hình
-
-<!-- TODO: thêm ảnh chụp 7 màn hình vào thư mục docs/screenshots và cập nhật bảng dưới -->
 
 | Đăng nhập | Kệ sách | Tìm sách | Chi tiết |
 |---|---|---|---|
@@ -16,88 +12,120 @@
 |---|---|---|
 | ![](docs/screenshots/notes.png) | ![](docs/screenshots/goals.png) | ![](docs/screenshots/settings.png) |
 
-## Tính năng
+## Chức năng chính
 
-| Màn hình | Chức năng |
+- **Đăng nhập bằng Google** (Firebase Auth + Credential Manager).
+- **Kệ sách** chia 3 tab: Đang đọc / Muốn đọc / Đã đọc, có hiện số lượng sách mỗi tab.
+- **Tìm sách** theo tên, tác giả hoặc ISBN bằng Google Books API. Sách nào đã có trên kệ thì được đánh dấu luôn trong kết quả.
+- **Chi tiết sách**: xem thông tin, giới thiệu, đổi trạng thái hoặc xoá khỏi kệ. Sách đã lưu thì mở được cả khi offline.
+- **Ghi chú & đánh giá** từ 1 đến 5 sao cho từng cuốn.
+- **Mục tiêu đọc trong năm**: thanh tiến độ, số trang đã đọc, danh sách sách đã đọc xong trong năm.
+- **Cài đặt**: giao diện Sáng / Tối / Theo hệ thống, chọn ngôn ngữ, bật nhắc đọc sách mỗi ngày theo giờ tự chọn, đồng bộ thủ công, đăng xuất.
+- Hỗ trợ **Tiếng Việt và English**, màu giao diện theo hình nền máy (Dynamic Color, Android 12+).
+
+## Công nghệ sử dụng
+
+| Phần | Công nghệ |
 |---|---|
-| Đăng nhập | Đăng nhập Google qua Firebase Auth + Credential Manager |
-| Kệ sách | 3 tab theo trạng thái (kèm số lượng), hiển thị đánh giá sao |
-| Tìm sách | Tìm theo tên/tác giả/ISBN qua Google Books API, đánh dấu sách đã có trên kệ |
-| Chi tiết sách | Thông tin, mô tả, chọn trạng thái, xoá khỏi kệ; xem được offline nếu sách đã trên kệ |
-| Ghi chú & đánh giá | Chấm 1–5 sao, viết ghi chú |
-| Mục tiêu | Mục tiêu số sách/năm, thanh tiến độ, thống kê, danh sách sách đã đọc trong năm |
-| Cài đặt | Tài khoản, đồng bộ, theme Sáng/Tối/Theo hệ thống, ngôn ngữ, giờ nhắc đọc sách, đăng xuất |
-
-Ngoài ra: Dynamic Color (Android 12+), song ngữ Tiếng Việt / English, trạng thái loading / empty / error ở mọi màn có dữ liệu.
-
-## Công nghệ
-
-- **UI:** Jetpack Compose + Material 3 (100% Compose), Navigation Compose với route type-safe
-- **Kiến trúc:** MVVM — ViewModel + StateFlow, Repository; DI bằng Hilt
-- **Dữ liệu từ xa:** Google Books API (Retrofit + kotlinx.serialization), Cloud Firestore
-- **Offline:** Room là nguồn dữ liệu chính (single source of truth); DataStore cho cài đặt
-- **Nền tảng:** WorkManager (đồng bộ nền + nhắc đọc hằng ngày), local notification, runtime permission `POST_NOTIFICATIONS`
-- **Khác:** Coil (ảnh bìa), Credential Manager (Google Sign-In)
+| Giao diện | Jetpack Compose, Material 3 |
+| Điều hướng | Navigation Compose (type-safe routes) |
+| Kiến trúc | MVVM: ViewModel + StateFlow, Repository |
+| Dependency Injection | Hilt |
+| Gọi API | Retrofit, OkHttp, kotlinx.serialization |
+| Lưu trữ offline | Room, DataStore |
+| Cloud | Firebase Authentication, Cloud Firestore |
+| Chạy nền | WorkManager (đồng bộ dữ liệu, nhắc đọc sách), Notification |
+| Ảnh | Coil |
+| Kiểm thử | JUnit, kotlinx-coroutines-test, Compose UI Test |
 
 ## Kiến trúc
 
 ```
-UI (Compose Screen) ──event──▶ ViewModel ──▶ Repository ──▶ Room (local)
-        ▲                          │               │
-        └──── StateFlow<UiState> ──┘               ├──▶ Google Books API (Retrofit)
-                                                   └──▶ Firestore (qua SyncWorker)
+Compose Screen ──(sự kiện)──▶ ViewModel ──▶ Repository ──▶ Room
+      ▲                           │              │
+      └────── StateFlow ──────────┘              ├──▶ Google Books API
+                                                 └──▶ Firestore (qua SyncWorker)
 ```
 
-**Luồng offline-first của kệ sách:**
-1. Mọi thay đổi được ghi vào Room trước và đánh dấu `pendingSync = true` → UI cập nhật ngay kể cả khi mất mạng.
-2. Repository xếp lịch `SyncWorker` (WorkManager, yêu cầu có mạng, tự thử lại với backoff).
-3. `SyncWorker` đẩy các thay đổi lên Firestore tại `users/{uid}/books/{bookId}`, sau đó kéo dữ liệu từ máy khác về. Xung đột được giải quyết theo `updatedAt` (bản sửa sau thắng; thay đổi chưa đồng bộ ở máy hiện tại luôn được giữ).
-4. Xoá sách là "xoá mềm" (`isDeleted`) cho tới khi Firestore xác nhận đã xoá.
+Em chọn hướng **offline-first**: Room là nơi lưu dữ liệu chính, giao diện chỉ đọc dữ liệu từ Room.
 
-**Cấu trúc package:**
+1. Khi người dùng thêm, sửa hoặc xoá sách, dữ liệu được ghi vào Room trước và đánh dấu `pendingSync = true`. Nhờ vậy giao diện cập nhật ngay, kể cả lúc mất mạng.
+2. Repository gửi yêu cầu cho `SyncWorker`. WorkManager chỉ chạy worker khi có mạng và tự thử lại nếu bị lỗi.
+3. `SyncWorker` đẩy các thay đổi lên Firestore (`users/{uid}/books/{bookId}`), sau đó tải dữ liệu từ máy khác về. Nếu hai máy cùng sửa một cuốn thì bản có `updatedAt` mới hơn sẽ được giữ lại.
+4. Khi xoá sách, app chỉ đánh dấu `isDeleted` trước, đợi Firestore xoá xong mới xoá hẳn ở máy, để không bị mất đồng bộ.
+
+Firestore có Security Rules (file [`firestore.rules`](firestore.rules)): mỗi người chỉ đọc và ghi được dữ liệu của chính mình, và dữ liệu được kiểm tra hợp lệ (status, rating 0–5, …) trước khi lưu.
+
+### Cấu trúc thư mục
 
 ```
-com.example.zerobook
-├── model/        Model của app (Book, ShelfBook, ReadingStatus, ...)
+app/src/main/java/com/example/zerobook
+├── model/         Các model: Book, ShelfBook, ReadingStatus, ...
 ├── data/
-│   ├── local/    Room: Entity, DAO, Database
-│   ├── remote/   Retrofit API + DTO, Firestore data source
-│   ├── repository/  Interface + bản cài đặt repository
-│   └── util/
-├── di/           Hilt modules
-├── work/         SyncWorker, ReminderWorker, ReminderScheduler, notification channel
-└── ui/           Mỗi màn một package: Screen (stateful) + Content (stateless) + ViewModel
+│   ├── local/     Room (Entity, DAO, Database)
+│   ├── remote/    Retrofit API, DTO, Firestore
+│   └── repository/
+├── di/            Các Hilt module
+├── work/          SyncWorker, ReminderWorker, lập lịch nhắc nhở
+└── ui/            Mỗi màn hình một package (Screen + ViewModel)
 ```
 
-## Cài đặt & chạy
+## Hướng dẫn chạy project
 
-1. Clone repo, mở bằng Android Studio (bản mới, hỗ trợ AGP 9).
-2. Tạo project Firebase, thêm app Android với package `com.example.zerobook` và SHA-1 debug (`./gradlew signingReport`).
-3. Tải `google-services.json` đặt vào thư mục `app/`.
-4. Firebase Console → Authentication → bật **Google**. Copy **Web client ID** và dán vào `app/src/main/res/values/strings.xml` ở dòng `google_web_client_id`.
-5. Tạo Firestore Database, rồi dán nội dung file [`firestore.rules`](firestore.rules) vào tab **Rules** và bấm **Publish**.
-6. Run.
+**Yêu cầu:** Android Studio bản mới (hỗ trợ AGP 9), máy ảo hoặc máy thật từ Android 8.0 (API 26) trở lên.
+
+1. Clone repo và mở thư mục `ZeroBook` bằng Android Studio.
+2. **Firebase**
+    - Tạo project trên Firebase, thêm app Android với package `com.example.zerobook` và SHA-1 (lấy bằng lệnh `./gradlew signingReport`).
+    - Tải `google-services.json` rồi bỏ vào thư mục `app/`.
+    - Vào Authentication → bật đăng nhập bằng **Google**.
+    - Tạo Firestore Database, sau đó dán nội dung file `firestore.rules` vào tab Rules rồi bấm Publish.
+3. **Web client ID**: lấy ở Authentication → Google → Web SDK configuration, dán vào `app/src/main/res/values/strings.xml` tại dòng `google_web_client_id`.
+4. **Google Books API key**: tạo API key trên Google Cloud Console (giới hạn chỉ cho Books API), rồi thêm vào file `local.properties` ở thư mục gốc:
+   ```properties
+   GOOGLE_BOOKS_API_KEY=your_api_key
+   ```
+   Nếu không có key, app vẫn chạy nhưng Google Books hay báo lỗi 429 (quá nhiều request).
+5. Bấm Run.
 
 ## Kiểm thử
 
 ```bash
-./gradlew testDebugUnitTest          # unit test ViewModel (JVM)
-./gradlew connectedDebugAndroidTest  # Compose UI test (cần emulator đang chạy)
+./gradlew testDebugUnitTest          # Unit test cho ViewModel
+./gradlew connectedDebugAndroidTest  # UI test, cần mở máy ảo trước
 ```
 
-- Unit test: `ShelfViewModelTest`, `SearchViewModelTest`, `GoalsViewModelTest`, `LoginViewModelTest` — dùng repository giả (fake) trong `test/.../fakes`.
-- UI test: `ShelfContentTest` — kiểm tra empty state và thao tác bấm sách trên màn Kệ sách.
+- **Unit test** (`app/src/test`): `ShelfViewModelTest`, `SearchViewModelTest`, `GoalsViewModelTest`, `LoginViewModelTest`. Các test dùng repository giả (fake) nên chạy trên JVM, không cần mạng hay Firebase.
+- **UI test** (`app/src/androidTest`): `ShelfContentTest` kiểm tra trạng thái kệ trống và thao tác bấm vào sách.
 
 ## Bản release
 
-<!-- TODO: cập nhật sau khi làm bước build release -->
-- Ký bằng keystore riêng (không đưa keystore lên repo, xem `.gitignore`).
-- Bật R8.
-- Kích thước APK trước/sau R8: _cập nhật sau_.
+- File APK đã ký nằm ở mục **Releases** của repo.
+- App được ký bằng keystore riêng. Thông tin keystore để trong `keystore.properties`, không đưa lên GitHub.
+- Đã bật R8 cho bản release, và thêm keep rule cho Credential Manager trong `app/src/main/keepRules/rules.keep` để đăng nhập Google không bị lỗi sau khi R8 tối ưu.
+- SHA-1 của cả bản debug lẫn bản release đều đã khai báo trên Firebase, nên đăng nhập Google chạy được ở cả hai bản.
+
+Muốn tự build bản release thì tạo file `keystore.properties` ở thư mục gốc:
+
+```properties
+storeFile=đường/dẫn/tới/file.jks
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+rồi chạy `./gradlew assembleRelease`.
+
+**Lưu ý về bảo mật:** API key Google Books không có trong source code (lấy từ `local.properties`) nhưng vẫn nằm trong file APK, vì app gọi API trực tiếp. Để hạn chế rủi ro, key đã được giới hạn chỉ dùng được cho Books API.
 
 ## Tham khảo
 
-- [Android Developers — Jetpack Compose, Navigation, Room, WorkManager, Hilt](https://developer.android.com)
-- [Firebase Documentation — Authentication, Cloud Firestore](https://firebase.google.com/docs)
+- [Tài liệu Android Developers](https://developer.android.com): Compose, Navigation, Room, WorkManager, Hilt
+- [Tài liệu Firebase](https://firebase.google.com/docs): Authentication, Cloud Firestore
 - [Google Books API](https://developers.google.com/books)
-- **Công cụ AI:** dự án có sử dụng Claude (Anthropic) để hỗ trợ cấu hình Gradle, gợi ý kiến trúc và sinh một phần mã nguồn. Toàn bộ mã đã được đọc, chạy thử và chỉnh sửa; tác giả hiểu và có thể giải thích mọi phần trong dự án.
+- Code mẫu từ các bài lab trong khoá học
+- Có sử dụng (AI) để hỗ trợ cấu hình Gradle, gợi ý cách tổ chức kiến trúc và viết một phần code; em đã đọc hiểu, chạy thử và chỉnh sửa lại toàn bộ.
+
+## Tác giả
+
+**Huỳnh Nghiệp Tuấn** · GitHub: [@Naut-131101](https://github.com/Naut-131101)
