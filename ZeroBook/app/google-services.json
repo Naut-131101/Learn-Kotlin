@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "341120046628",
+    "project_id": "zero-book-f32a0",
+    "storage_bucket": "zero-book-f32a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341120046628:android:98cf427ba3edfd166d6ab1",
+        "android_client_info": {
+          "package_name": "com.example.zerobook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341120046628-66h3b164nh8s4pjh1mfhtm0vhv3f6u47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zerobook",
+            "certificate_hash": "19cf6c6a076f4c93420386a18386877afbcc60f7"
+          }
+        },
+        {
+          "client_id": "341120046628-lkpju1s27ku1b283farjk8soid1cal9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVx-dQAJUaFaOuh0_J-6EYJTN-B-t4u44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341120046628-lkpju1s27ku1b283farjk8soid1cal9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "776546524609",
+    "project_id": "so-chi-tieu-ed2a1",
+    "storage_bucket": "so-chi-tieu-ed2a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776546524609:android:4ba9a52295deb0a075e340",
+        "android_client_info": {
+          "package_name": "com.example.sochitieu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776546524609-albv9u5e45kplv1mmiq5ge4bm3lp5ehj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcgwG49C4yIJzj3wML2HdWSx2YzUU_NB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776546524609-albv9u5e45kplv1mmiq5ge4bm3lp5ehj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

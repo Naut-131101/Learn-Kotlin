@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">ZeroBook</string>
+
+    <!-- Dán Web client ID lấy ở Firebase Console > Authentication > Google > Web SDK configuration -->
+    <string name="google_web_client_id" translatable="false">341120046628-lkpju1s27ku1b283farjk8soid1cal9p.apps.googleusercontent.com</string>
+
+    <!-- Navigation -->
+    <string name="nav_shelf">Shelf</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_goals">Goals</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Reading status -->
+    <string name="status_reading">Reading</string>
+    <string name="status_want_to_read">Want to read</string>
+    <string name="status_read">Read</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Back</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_retry">Try again</string>
+    <string name="action_remove">Remove</string>
+    <string name="action_open_notes">Notes &amp; rating</string>
+    <string name="action_remove_from_shelf">Remove from shelf</string>
+
+    <string name="error_network_title">Couldn\'t load data</string>
+    <string name="error_network_message">Check your internet connection and try again.</string>
+
+    <!-- Login -->
+    <string name="login_tagline">Your personal library, everywhere you read.</string>
+    <string name="login_button">Sign in with Google</string>
+    <string name="login_error_google">Google sign-in failed. Please try again.</string>
+    <string name="login_error_firebase">Couldn\'t sign in to your account. Please try again.</string>
+
+    <!-- Shelf -->
+    <string name="shelf_tab_with_count">%1$s (%2$d)</string>
+    <string name="shelf_empty_title">Nothing here yet</string>
+    <string name="shelf_empty_message">Search for books and add them to your shelf.</string>
+    <string name="shelf_empty_action">Find books</string>
+
+    <!-- Search -->
+    <string name="search_hint">Title, author or ISBN</string>
+    <string name="search_idle_title">Find your next book</string>
+    <string name="search_idle_message">Type a title or author, then press search on the keyboard.</string>
+    <string name="search_empty_title">No books found</string>
+    <string name="search_empty_message">Try different keywords.</string>
+    <string name="search_on_shelf">On your shelf · %1$s</string>
+
+    <!-- Book detail -->
+    <string name="detail_title">Book details</string>
+    <string name="detail_pages">%1$d pages</string>
+    <string name="detail_status_label">Add to shelf</string>
+    <string name="detail_not_on_shelf">Choose a status to add this book to your shelf.</string>
+    <string name="detail_description">Description</string>
+    <string name="cd_book_cover">Cover of %1$s</string>
+    <string name="remove_dialog_title">Remove from shelf?</string>
+    <string name="remove_dialog_message">“%1$s” and its notes will be removed from your shelf.</string>
+
+    <!-- Rating -->
+    <string name="rating_star_description">Rate %1$d stars</string>
+    <string name="rating_summary">%1$d out of 5 stars</string>
+
+    <!-- Notes -->
+    <string name="notes_title">Notes &amp; rating</string>
+    <string name="notes_rating_label">Your rating</string>
+    <string name="notes_note_label">Your notes</string>
+    <string name="notes_not_on_shelf">Add this book to your shelf first.</string>
+
+    <!-- Goals -->
+    <string name="goals_year_title">Reading goal %1$d</string>
+    <string name="goals_progress">%1$d / %2$d books</string>
+    <string name="goals_remaining">%1$d more books to reach your goal</string>
+    <string name="goals_done">Goal reached! Great job 🎉</string>
+    <string name="goals_edit">Change goal</string>
+    <string name="goals_dialog_title">Yearly reading goal</string>
+    <string name="goals_dialog_label">Books per year</string>
+    <string name="goals_dialog_error">Enter a number from 1 to 365</string>
+    <string name="goals_stat_reading">Reading</string>
+    <string name="goals_stat_want">Want to read</string>
+    <string name="goals_stat_pages">Pages this year</string>
+    <string name="goals_finished_title">Finished this year</string>
+    <string name="goals_finished_empty">Mark a book as “Read” and it will appear here.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_account">Account</string>
+    <string name="settings_sync_now">Sync now</string>
+    <string name="settings_sync_description">Back up your shelf to the cloud</string>
+    <string name="settings_sync_started">Syncing in the background…</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="settings_sign_out_dialog_title">Sign out?</string>
+    <string name="settings_sign_out_dialog_message">Your shelf stays safe in the cloud and will come back when you sign in again.</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_description">English / Tiếng Việt</string>
+    <string name="settings_section_reminder">Reading reminder</string>
+    <string name="settings_reminder_daily">Daily reminder</string>
+    <string name="settings_reminder_description">Get a notification to read every day</string>
+    <string name="settings_reminder_time">Reminder time</string>
+    <string name="settings_notification_permission_denied">Notification permission is needed for reminders.</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_reminder_name">Reading reminders</string>
+    <string name="notification_channel_reminder_description">Daily reminder to read</string>
+    <string name="reminder_title">Time to read 📚</string>
+    <string name="reminder_text_default">Just 15 minutes of reading today keeps the habit going.</string>
+    <string name="reminder_text_continue">Continue “%1$s” — just 15 minutes today.</string>
+</resources>

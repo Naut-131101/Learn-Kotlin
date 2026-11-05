@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">ZeroBook</string>
+
+    <!-- Navigation -->
+    <string name="nav_shelf">Kệ sách</string>
+    <string name="nav_search">Tìm sách</string>
+    <string name="nav_goals">Mục tiêu</string>
+    <string name="nav_settings">Cài đặt</string>
+
+    <!-- Reading status -->
+    <string name="status_reading">Đang đọc</string>
+    <string name="status_want_to_read">Muốn đọc</string>
+    <string name="status_read">Đã đọc</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Quay lại</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_cancel">Huỷ</string>
+    <string name="action_clear">Xoá</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="action_remove">Xoá</string>
+    <string name="action_open_notes">Ghi chú &amp; đánh giá</string>
+    <string name="action_remove_from_shelf">Xoá khỏi kệ</string>
+
+    <string name="error_network_title">Không tải được dữ liệu</string>
+    <string name="error_network_message">Kiểm tra kết nối mạng rồi thử lại.</string>
+
+    <!-- Login -->
+    <string name="login_tagline">Thư viện sách của riêng bạn, đọc ở đâu cũng có.</string>
+    <string name="login_button">Đăng nhập bằng Google</string>
+    <string name="login_error_google">Đăng nhập Google thất bại. Vui lòng thử lại.</string>
+    <string name="login_error_firebase">Không đăng nhập được tài khoản. Vui lòng thử lại.</string>
+
+    <!-- Shelf -->
+    <string name="shelf_tab_with_count">%1$s (%2$d)</string>
+    <string name="shelf_empty_title">Chưa có sách nào</string>
+    <string name="shelf_empty_message">Tìm sách và thêm vào kệ của bạn.</string>
+    <string name="shelf_empty_action">Tìm sách</string>
+
+    <!-- Search -->
+    <string name="search_hint">Tên sách, tác giả hoặc ISBN</string>
+    <string name="search_idle_title">Tìm cuốn sách tiếp theo</string>
+    <string name="search_idle_message">Nhập tên sách hoặc tác giả, rồi bấm nút tìm trên bàn phím.</string>
+    <string name="search_empty_title">Không tìm thấy sách</string>
+    <string name="search_empty_message">Thử từ khoá khác xem sao.</string>
+    <string name="search_on_shelf">Đã có trên kệ · %1$s</string>
+
+    <!-- Book detail -->
+    <string name="detail_title">Chi tiết sách</string>
+    <string name="detail_pages">%1$d trang</string>
+    <string name="detail_status_label">Thêm vào kệ</string>
+    <string name="detail_not_on_shelf">Chọn một trạng thái để thêm sách vào kệ.</string>
+    <string name="detail_description">Giới thiệu</string>
+    <string name="cd_book_cover">Bìa sách %1$s</string>
+    <string name="remove_dialog_title">Xoá khỏi kệ?</string>
+    <string name="remove_dialog_message">“%1$s” cùng ghi chú của nó sẽ bị xoá khỏi kệ sách.</string>
+
+    <!-- Rating -->
+    <string name="rating_star_description">Đánh giá %1$d sao</string>
+    <string name="rating_summary">%1$d trên 5 sao</string>
+
+    <!-- Notes -->
+    <string name="notes_title">Ghi chú &amp; đánh giá</string>
+    <string name="notes_rating_label">Đánh giá của bạn</string>
+    <string name="notes_note_label">Ghi chú của bạn</string>
+    <string name="notes_not_on_shelf">Hãy thêm sách vào kệ trước.</string>
+
+    <!-- Goals -->
+    <string name="goals_year_title">Mục tiêu đọc năm %1$d</string>
+    <string name="goals_progress">%1$d / %2$d cuốn</string>
+    <string name="goals_remaining">Còn %1$d cuốn nữa là đạt mục tiêu</string>
+    <string name="goals_done">Đã đạt mục tiêu! Tuyệt vời 🎉</string>
+    <string name="goals_edit">Đổi mục tiêu</string>
+    <string name="goals_dialog_title">Mục tiêu đọc trong năm</string>
+    <string name="goals_dialog_label">Số cuốn mỗi năm</string>
+    <string name="goals_dialog_error">Nhập số từ 1 đến 365</string>
+    <string name="goals_stat_reading">Đang đọc</string>
+    <string name="goals_stat_want">Muốn đọc</string>
+    <string name="goals_stat_pages">Trang năm nay</string>
+    <string name="goals_finished_title">Đã đọc xong năm nay</string>
+    <string name="goals_finished_empty">Đánh dấu sách là “Đã đọc” để sách hiện ở đây.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_account">Tài khoản</string>
+    <string name="settings_sync_now">Đồng bộ ngay</string>
+    <string name="settings_sync_description">Sao lưu kệ sách lên đám mây</string>
+    <string name="settings_sync_started">Đang đồng bộ ở chế độ nền…</string>
+    <string name="settings_sign_out">Đăng xuất</string>
+    <string name="settings_sign_out_dialog_title">Đăng xuất?</string>
+    <string name="settings_sign_out_dialog_message">Kệ sách vẫn được lưu an toàn trên đám mây và sẽ quay lại khi bạn đăng nhập.</string>
+    <string name="settings_section_appearance">Giao diện</string>
+    <string name="theme_system">Theo hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_language_description">English / Tiếng Việt</string>
+    <string name="settings_section_reminder">Nhắc đọc sách</string>
+    <string name="settings_reminder_daily">Nhắc mỗi ngày</string>
+    <string name="settings_reminder_description">Nhận thông báo nhắc đọc sách hằng ngày</string>
+    <string name="settings_reminder_time">Giờ nhắc</string>
+    <string name="settings_notification_permission_denied">Cần cấp quyền thông báo để nhận nhắc nhở.</string>
+    <string name="settings_section_about">Giới thiệu</string>
+    <string name="settings_version">Phiên bản %1$s</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_reminder_name">Nhắc đọc sách</string>
+    <string name="notification_channel_reminder_description">Nhắc nhở đọc sách mỗi ngày</string>
+    <string name="reminder_title">Đến giờ đọc sách rồi 📚</string>
+    <string name="reminder_text_default">Chỉ 15 phút đọc hôm nay là đủ giữ thói quen.</string>
+    <string name="reminder_text_continue">Đọc tiếp “%1$s” — chỉ 15 phút hôm nay thôi.</string>
+</resources>

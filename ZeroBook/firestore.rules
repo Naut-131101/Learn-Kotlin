@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Chỉ chủ tài khoản được đọc/ghi kệ sách của mình
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Kiểm tra dữ liệu hợp lệ trước khi cho ghi
+    function isValidBook() {
+      let data = request.resource.data;
+      return data.title is string
+        && data.title.size() > 0
+        && data.status in ['READING', 'WANT_TO_READ', 'READ']
+        && data.rating is int
+        && data.rating >= 0
+        && data.rating <= 5
+        && data.note is string
+        && data.note.size() <= 5000
+        && data.updatedAt is int;
+    }
+
+    match /users/{userId}/books/{bookId} {
+      allow read, delete: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidBook();
+    }
+
+    // Mọi đường dẫn khác: chặn hết
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
