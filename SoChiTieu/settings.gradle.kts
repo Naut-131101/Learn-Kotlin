@@ -23,3 +23,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SoChiTieu"
+include(":app")

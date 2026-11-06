@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /expenses/{expenseId} {
+      allow read: if true;
+      allow create: if isValidExpense(request.resource.data)
+                    && request.resource.data.createdAt == request.time;
+      allow update: if isValidExpense(request.resource.data)
+                    && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if true;
+    }
+
+    // Kiểm tra dữ liệu: đủ field, đúng kiểu, giá trị hợp lệ
+    function isValidExpense(data) {
+      return data.keys().hasOnly(['amount', 'category', 'note', 'spentAt', 'createdAt'])
+          && data.amount is int && data.amount > 0 && data.amount <= 1000000000
+          && data.category in ['FOOD', 'TRANSPORT', 'SHOPPING', 'BILLS', 'OTHER']
+          && data.note is string && data.note.size() <= 200
+          && data.spentAt is timestamp;
+    }
+  }
+}

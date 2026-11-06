@@ -23,3 +23,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "test-flutter"
+include(":app")

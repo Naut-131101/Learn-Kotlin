@@ -23,3 +23,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CloudAlbum"
+include(":app")
+ 
