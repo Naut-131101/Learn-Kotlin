@@ -1,4 +1,4 @@
-# ZeroBook
+# ZeroBook 📚
 
 ZeroBook là app Android quản lý tủ sách cá nhân mà em làm cho đồ án cuối khoá Kotlin/Android. App giúp mình theo dõi những cuốn sách đang đọc, đã đọc và muốn đọc, ghi lại cảm nhận, chấm điểm từng cuốn và đặt mục tiêu đọc bao nhiêu cuốn trong năm. Dữ liệu vẫn xem được khi không có mạng và tự đồng bộ lên cloud theo tài khoản Google, nên đổi máy vẫn còn nguyên kệ sách.
 
@@ -12,6 +12,10 @@ ZeroBook là app Android quản lý tủ sách cá nhân mà em làm cho đồ �
 |---|---|---|
 | ![](docs/screenshots/notes.png) | ![](docs/screenshots/goals.png) | ![](docs/screenshots/settings.png) |
 
+**Màn hình lớn / xoay ngang:** thanh điều hướng chuyển sang bên trái (NavigationRail).
+
+![](docs/screenshots/tablet/landscape.png)
+
 ## Chức năng chính
 
 - **Đăng nhập bằng Google** (Firebase Auth + Credential Manager).
@@ -22,6 +26,8 @@ ZeroBook là app Android quản lý tủ sách cá nhân mà em làm cho đồ �
 - **Mục tiêu đọc trong năm**: thanh tiến độ, số trang đã đọc, danh sách sách đã đọc xong trong năm.
 - **Cài đặt**: giao diện Sáng / Tối / Theo hệ thống, chọn ngôn ngữ, bật nhắc đọc sách mỗi ngày theo giờ tự chọn, đồng bộ thủ công, đăng xuất.
 - Hỗ trợ **Tiếng Việt và English**, màu giao diện theo hình nền máy (Dynamic Color, Android 12+).
+- **Animation** khi chuyển màn hình, thanh điều hướng ẩn/hiện mượt, thanh tiến độ mục tiêu chạy dần.
+- **Màn hình lớn**: trên tablet hoặc khi xoay ngang, thanh điều hướng dưới chuyển thành thanh bên trái (NavigationRail).
 
 ## Công nghệ sử dụng
 
@@ -35,6 +41,7 @@ ZeroBook là app Android quản lý tủ sách cá nhân mà em làm cho đồ �
 | Lưu trữ offline | Room, DataStore |
 | Cloud | Firebase Authentication, Cloud Firestore |
 | Chạy nền | WorkManager (đồng bộ dữ liệu, nhắc đọc sách), Notification |
+| CI | GitHub Actions (tự chạy unit test) |
 | Ảnh | Coil |
 | Kiểm thử | JUnit, kotlinx-coroutines-test, Compose UI Test |
 
@@ -76,10 +83,10 @@ app/src/main/java/com/example/zerobook
 
 1. Clone repo và mở thư mục `ZeroBook` bằng Android Studio.
 2. **Firebase**
-    - Tạo project trên Firebase, thêm app Android với package `com.example.zerobook` và SHA-1 (lấy bằng lệnh `./gradlew signingReport`).
-    - Tải `google-services.json` rồi bỏ vào thư mục `app/`.
-    - Vào Authentication → bật đăng nhập bằng **Google**.
-    - Tạo Firestore Database, sau đó dán nội dung file `firestore.rules` vào tab Rules rồi bấm Publish.
+   - Tạo project trên Firebase, thêm app Android với package `com.example.zerobook` và SHA-1 (lấy bằng lệnh `./gradlew signingReport`).
+   - Tải `google-services.json` rồi bỏ vào thư mục `app/`.
+   - Vào Authentication → bật đăng nhập bằng **Google**.
+   - Tạo Firestore Database, sau đó dán nội dung file `firestore.rules` vào tab Rules rồi bấm Publish.
 3. **Web client ID**: lấy ở Authentication → Google → Web SDK configuration, dán vào `app/src/main/res/values/strings.xml` tại dòng `google_web_client_id`.
 4. **Google Books API key**: tạo API key trên Google Cloud Console (giới hạn chỉ cho Books API), rồi thêm vào file `local.properties` ở thư mục gốc:
    ```properties
@@ -98,11 +105,32 @@ app/src/main/java/com/example/zerobook
 - **Unit test** (`app/src/test`): `ShelfViewModelTest`, `SearchViewModelTest`, `GoalsViewModelTest`, `LoginViewModelTest`. Các test dùng repository giả (fake) nên chạy trên JVM, không cần mạng hay Firebase.
 - **UI test** (`app/src/androidTest`): `ShelfContentTest` kiểm tra trạng thái kệ trống và thao tác bấm vào sách.
 
+| Unit test | UI test |
+|---|---|
+| ![](docs/screenshots/tests/unit-tests.png) | ![](docs/screenshots/tests/ui-tests.png) |
+
+### Tự động chạy test với GitHub Actions
+
+Mỗi khi có thay đổi trong thư mục `ZeroBook/` hoặc có pull request, GitHub Actions tự chạy toàn bộ unit test (workflow `.github/workflows/zerobook-ci.yml` ở gốc repo). Báo cáo test được lưu lại thành artifact của mỗi lần chạy.
+
+![](docs/screenshots/ci/github-actions.png)
+
 ## Bản release
 
 - File APK đã ký nằm ở mục **Releases** của repo.
 - App được ký bằng keystore riêng. Thông tin keystore để trong `keystore.properties`, không đưa lên GitHub.
 - Đã bật R8 cho bản release, và thêm keep rule cho Credential Manager trong `app/src/main/keepRules/rules.keep` để đăng nhập Google không bị lỗi sau khi R8 tối ưu.
+- Kích thước APK trước và sau khi bật R8 (cùng mã nguồn, build bằng `./gradlew assembleRelease`):
+
+  | Bản release | Kích thước APK |
+  |---|---|
+  | Không bật R8 | 19.2 MB (20,232,795 bytes) |
+  | Bật R8 | 7.23 MB (7,587,498 bytes) |
+  | **Giảm** | **12.0 MB (~62.5%)** |
+
+  Phần giảm chủ yếu đến từ việc R8 loại bỏ code không dùng trong các thư viện, nhất là bộ `material-icons-extended` (app chỉ dùng vài chục icon trong hàng nghìn icon của thư viện).
+
+  ![](docs/screenshots/release/r8-size.png)
 - SHA-1 của cả bản debug lẫn bản release đều đã khai báo trên Firebase, nên đăng nhập Google chạy được ở cả hai bản.
 
 Muốn tự build bản release thì tạo file `keystore.properties` ở thư mục gốc:
@@ -124,7 +152,7 @@ rồi chạy `./gradlew assembleRelease`.
 - [Tài liệu Firebase](https://firebase.google.com/docs): Authentication, Cloud Firestore
 - [Google Books API](https://developers.google.com/books)
 - Code mẫu từ các bài lab trong khoá học
-- Có sử dụng (AI) để hỗ trợ cấu hình Gradle, gợi ý cách tổ chức kiến trúc và viết một phần code; em đã đọc hiểu, chạy thử và chỉnh sửa lại toàn bộ.
+- Có sử dụng Claude (AI) để hỗ trợ cấu hình Gradle, gợi ý cách tổ chức kiến trúc và viết một phần code; em đã đọc hiểu, chạy thử và chỉnh sửa lại toàn bộ.
 
 ## Tác giả
 
