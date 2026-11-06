@@ -1,5 +1,10 @@
 package com.example.zerobook.ui.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.dropUnlessResumed
@@ -25,6 +30,18 @@ fun ZeroBookNavHost(
         navController = navController,
         startDestination = ShelfRoute,
         modifier = modifier,
+        // Animation chuyển màn: màn mới trượt nhẹ từ phải vào và hiện dần,
+        // bấm Back thì màn hiện tại trượt nhẹ sang phải và mờ đi.
+        enterTransition = {
+            fadeIn(tween(TRANSITION_MS)) +
+                slideInHorizontally(tween(TRANSITION_MS)) { fullWidth -> fullWidth / 10 }
+        },
+        exitTransition = { fadeOut(tween(TRANSITION_MS / 2)) },
+        popEnterTransition = { fadeIn(tween(TRANSITION_MS)) },
+        popExitTransition = {
+            fadeOut(tween(TRANSITION_MS / 2)) +
+                slideOutHorizontally(tween(TRANSITION_MS)) { fullWidth -> fullWidth / 10 }
+        },
     ) {
         composable<ShelfRoute> {
             ShelfScreen(
@@ -61,6 +78,8 @@ fun ZeroBookNavHost(
         }
     }
 }
+
+private const val TRANSITION_MS = 280
 
 /**
  * Chuyển tab:

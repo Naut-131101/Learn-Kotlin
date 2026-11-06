@@ -1,5 +1,6 @@
 package com.example.zerobook.ui.detail
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -186,32 +187,40 @@ private fun BookDetailBody(
             }
         }
 
-        if (shelfBook == null) {
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.detail_not_on_shelf),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        } else {
-            if (shelfBook.rating > 0) {
-                Spacer(Modifier.height(16.dp))
-                RatingBar(rating = shelfBook.rating, onRatingChange = null, starSize = 20.dp)
-            }
-            if (shelfBook.note.isNotBlank()) {
+        // animateContentSize: khi thêm sách lên kệ, phần nút và đánh giá
+        // giãn ra mượt mà thay vì nhảy đột ngột.
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .animateContentSize(),
+        ) {
+            if (shelfBook == null) {
                 Spacer(Modifier.height(8.dp))
-                Text(shelfBook.note, style = MaterialTheme.typography.bodyMedium)
-            }
-            Spacer(Modifier.height(12.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                FilledTonalButton(onClick = onOpenNotes) {
-                    Icon(Icons.Filled.EditNote, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.action_open_notes))
+                Text(
+                    text = stringResource(R.string.detail_not_on_shelf),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                if (shelfBook.rating > 0) {
+                    Spacer(Modifier.height(16.dp))
+                    RatingBar(rating = shelfBook.rating, onRatingChange = null, starSize = 20.dp)
                 }
-                Spacer(Modifier.width(8.dp))
-                TextButton(onClick = { showRemoveDialog = true }) {
-                    Text(stringResource(R.string.action_remove_from_shelf))
+                if (shelfBook.note.isNotBlank()) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(shelfBook.note, style = MaterialTheme.typography.bodyMedium)
+                }
+                Spacer(Modifier.height(12.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    FilledTonalButton(onClick = onOpenNotes) {
+                        Icon(Icons.Filled.EditNote, contentDescription = null)
+                        Spacer(Modifier.width(8.dp))
+                        Text(stringResource(R.string.action_open_notes))
+                    }
+                    Spacer(Modifier.width(8.dp))
+                    TextButton(onClick = { showRemoveDialog = true }) {
+                        Text(stringResource(R.string.action_remove_from_shelf))
+                    }
                 }
             }
         }

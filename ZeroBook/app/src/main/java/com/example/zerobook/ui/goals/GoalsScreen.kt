@@ -1,5 +1,7 @@
 package com.example.zerobook.ui.goals
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -165,8 +167,14 @@ private fun GoalProgressCard(
                 style = MaterialTheme.typography.headlineMedium,
             )
             Spacer(Modifier.height(12.dp))
+            // Thanh tiến độ chạy dần tới giá trị mới thay vì nhảy ngay
+            val animatedProgress by animateFloatAsState(
+                targetValue = uiState.progress,
+                animationSpec = tween(durationMillis = 800),
+                label = "goalProgress",
+            )
             LinearProgressIndicator(
-                progress = { uiState.progress },
+                progress = { animatedProgress },
                 modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(8.dp))
